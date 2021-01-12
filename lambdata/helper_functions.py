@@ -1,24 +1,24 @@
 """helper functions"""
 
-"""Checks the dataframe for null values 
-and returns the number of missing values"""
-
 import pandas as pd 
 
-def null_count(df):
-  cnt = 0
-  for x in df.columns:
-    a = df[x].isnull().sum()
-    cnt += a
-  return cnt
+class myDataFrameHe(pd.DataFrame):
+  def split_dates(self):
+    newdf = []
+    for x in range(len(self)):
+      data_date = str(self.values[x]).strip('[\'').strip('\']').split('/')
+      newdf.append(data_date)
+    add_data = pd.DataFrame(data=newdf,columns=['Month', 'Day', 'Year'])
+    new_df = pd.concat([self,add_data], axis=1)
+    return new_df
 
-"""Function splits date to Month, Day, Year columns"""
+  def null_count(self):
+    cnt = self.isnull().sum().sum()
+    return cnt
+  
+def train_test_split(df, frac):
+  train = df.sample(n=int(len(df)*frac))
+  test = df.drop(index=train.index)
+  return train,test
 
-def split_dates(date_series):
-  newdf = []
-  for x in range(len(date_series)):
-    data_date = str(date_series.values[x]).strip('[\'').strip('\']').split('/')
-    newdf.append(data_date)
-  add_data = pd.DataFrame(data=newdf,columns=['Month', 'Day', 'Year'])
-  new_df = pd.concat([date_series,add_data], axis=1)
-  return new_df
+
