@@ -1,0 +1,1 @@
+Joan's code meets the requirements. All 3 functions are intuitive to follow through with to gain an understanding of what they do, and the code's syntax is well organized making the code easy to read. I did have to ask how her split functions worked for the split_dates function worked, but once explained it's easy enough to interpret.
